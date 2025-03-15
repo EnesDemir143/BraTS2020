@@ -42,6 +42,11 @@ class BraTSDataLoader(Dataset):
         
         combined_data = torch.tensor(np.stack([t1, t1ce, t2, flair], axis=3), dtype=torch.float32)
         mask_tensor = nn.functional.one_hot(torch.tensor(mask, dtype=torch.long), num_classes=4)
+
+        combined_data = combined_data[56:184, 56:184, 13:141]
+
+        mask_tensor = mask_tensor[56:184, 56:184, 13:141]
+
         
         if self.transform:
             combined_data = self.transform(combined_data)
